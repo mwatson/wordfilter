@@ -36,6 +36,42 @@ wordfilter.addWords(['zebra','elephant'])
 wordfilter.blacklisted('this string has zebra in it')  # True
 ```
 
+PHP version:
+
+For Composer add the following to your composer.json file:
+
+```json
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/mwatson/wordfilter.git"
+        }
+    ],
+    "require": {
+        "mwatson/wordfilter": "dev-master"
+    }
+}
+```
+
+And then `composer install`.
+
+```php
+$wordFilter = \WordFilter\WordFilter::create();
+$wordFilter->blacklisted("does this string have a bad word in it?"); // false
+
+// clear the list entirely
+$wordFilter->clearList();
+
+// add new words
+$wordFilter->addWords(array("zebra", "elephant"));
+$wordFilter->blacklisted("this string has zebra in it")); // true
+
+// remove a word
+$wordFilter->removeWord("zebra");
+$wordFilter->blacklisted("this string has zebra in it"); // false
+```
+
 ## Documentation
 This is a word filter adapted from code that I use in a lot of my twitter bots. It is based on [a list of words that I've hand-picked](https://github.com/dariusk/wordfilter/blob/master/lib/badwords.json) for exclusion from my bots: essentially, it's a list of things that I would not say myself. Generally speaking, they are "words of oppression", aka racist/sexist/ableist things that I would not say.
 
